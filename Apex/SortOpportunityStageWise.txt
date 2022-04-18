@@ -1,0 +1,12 @@
+# SOQL Query to Fetch the data from Opprotunity whose stagename is Prospecting
+SELECT Id, Name, StageName FROM Opportunity where StageName = 'Prospecting';
+
+List<Opportunity> allOpportunities = [SELECT Account.Name,StageName FROM Opportunity];
+    List<Opportunity> newOpportunities = new List<Opportunity>();
+    for(Opportunity opportunity : allOpportunities){
+        if(opportunity.StageName.equals('Prospecting')){
+            newOpportunities.add(opportunity);
+        } 
+            
+    }
+    system.debug(newOpportunities);

@@ -1,0 +1,15 @@
+# SOQL Query To fetch all the account whose revenue is greater than 100000
+
+SELECT Id, Name, Revenue__c FROM Account WHERE Revenue__c > 100000
+
+
+List<Account> accountList = new List<Account>();
+    accountList = [SELECT Id, Name, Revenue__c FROM Account];
+    List<Account> newAccountList = new List<Account>();
+    for(Account account : accountList){
+        if(account.Revenue__c > 100000){
+            newAccountList.add(account);
+        }
+    }
+    system.debug('List of Accounts Revenue greater than 100000 :\n '+newAccountList);
+

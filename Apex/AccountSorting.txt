@@ -1,0 +1,1 @@
+SELECT Name, Revenue__c FROM Account ORDER BY Revenue__c DESC;
