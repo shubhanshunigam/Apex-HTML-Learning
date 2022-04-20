@@ -1,0 +1,35 @@
+public class oppoExtention{
+    public static void slots(List<Opportunity> opportunity){
+        Opportunity newOppo = [Select Id,Name,brand__Start_Date__c, brand__End_Date__c,Amount from Opportunity Where Id IN : opportunity];
+        
+        Date startDate = newOppo.brandms__Start_Date__c;
+        Date endDate = newOppo.brandms__End_Date__c;
+        Decimal slotAmount;
+        if(newOppo.Amount == null){
+            slotAmount = 0;
+        }
+        else{
+            slotAmount = newOppo.Amount / startDate.monthsBetween(endDate);
+        }
+        List<OpportunityExtension__c> oppoList = new List<OpportunityExtension__c>();
+        
+        for(Integer i=0; i < startDate.monthsBetween(endDate); i++){
+            OpportunityExtension__c slot = new OpportunityExtension__c();
+            Date slotDate = startDate.addMonths(i);
+            slot.brandms__Opportunity__c = newOppo.id;
+            slot.Name = newOppo.Name + ':Slot'+ new Integer(i+1);
+            slot.brandms__Start_Date__c = slotDate.addDays(1);
+            slot.brandms__End_Date__c = slotDate.addDays(Date.daysInMonth(slotDate.year(), slotDate.month()));
+            slot.brandms__Amount__c = slotAmount;
+            oppoList.add(slot);
+        }   
+        insert oppoList;
+        
+    }
+}
+
+
+# Opportunity Trigger:
+trigger oppoTrigger on Opportunity (before insert) {
+	oppoExtention.slots(Trigger.New);
+}
