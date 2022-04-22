@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Table</title>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>No of Rows</th>
+            </tr>
+        </thead>
+        <tbody id="tableData"></tbody>
+    </table>
+    <script>
+        let data = document.querySelector("tbody");
+        for (let i=1; i<11; i++) {
+            const row = document.createElement("tr");
+            const col = document.createElement("td");
+            col.textContent = i;
+            row.appendChild(col);
+            data.appendChild(row);
+        }
+    </script>
+</body>
+
+</html>
