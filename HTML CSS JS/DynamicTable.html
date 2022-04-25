@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <table>
+    <table onclick="clicked(event)">
         <thead>
             <tr>
                 <th>No of Rows</th>
@@ -22,6 +22,9 @@
             col.textContent = i;
             row.appendChild(col);
             data.appendChild(row);
+        }
+        function clicked(event) {
+             console.log(event.target.textContent);
         }
     </script>
 </body>
